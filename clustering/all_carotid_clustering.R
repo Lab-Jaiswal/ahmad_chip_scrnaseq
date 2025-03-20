@@ -141,7 +141,7 @@ estimate_corral <- function(sce_object, method = "irlba") {
     # Document this line better
     # Todo: let user choose between inverse normal and scaling and centering
     standardized_data <- SingleCellExperiment::counts(sce_object)[rowSubset(sce_object, "hvg"),] %>% 
-        corral::corral_preproc() %>% apply(1, RNOmni::RankNorm) %>% t()
+        corral::corral_preproc(rtype = "freemantukey") %>% apply(1, RNOmni::RankNorm) %>% t()
 
     if (method == "irlba") {
         init_npcs <- dim(standardized_data) %>% min() %>% sqrt() %>% ceiling()
